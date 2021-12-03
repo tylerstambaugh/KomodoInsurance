@@ -8,7 +8,7 @@ namespace KomodoInsurance.POCO
 {
           public enum Title
         {
-            Junior_Developer,
+            Junior_Developer = 1,
             Associate_Developer,
             Intern,
             Senior_Developer,

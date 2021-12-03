@@ -12,10 +12,11 @@ namespace KomodoInsurance.POCO
 
         public DevTeam() { }
 
-        public DevTeam(string teamName, string teamManager)
+        public DevTeam(string teamName)
         {
             TeamName = teamName;
-            TeamManager = teamManager;
+            TeamMembers = new List<Developer>();
+
         }
 
         public int Id { get; set; }
@@ -23,5 +24,6 @@ namespace KomodoInsurance.POCO
         public string TeamName { get; set; }
 
         public string TeamManager { get; set; }
+        public List<Developer> TeamMembers { get; set; }
     }
 }

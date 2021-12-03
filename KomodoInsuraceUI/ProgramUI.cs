@@ -13,8 +13,10 @@ namespace KomodoInsuraceUI
     {
 
         private readonly DeveloperRepo _developerRepo = new DeveloperRepo();
+        private readonly DevTeamRepo _devTeamRepo = new DevTeamRepo();
         public void Run()
         {
+            SeedData();
             RunApplication();
         }
 
@@ -26,9 +28,11 @@ namespace KomodoInsuraceUI
                 "1. Create a Developer \n" +
                 "2. Get Developer by ID \n" +
                 "3. Get List of All Developers \n" +
-                "4. Update A Developer \n" +
-                "5. Remove a Developer \n" +
-                "6. Team Operations \n" +
+                "4. Update A Developer by ID\n" +
+                "5. Remove a Developer by ID\n" +
+                "6. Display Dev Teams \n" +
+                "7. Display Dev Team w/ Team Members\n" +
+                "8." +
                 "99. Exit with Style" +
                 "");
 
@@ -51,7 +55,21 @@ namespace KomodoInsuraceUI
                     case "2":
                         GetDeveloperByID();
                         break;
-
+                    case "3":
+                        GetListOfAllDevelopers();
+                        break;
+                    case "4":
+                        UpdateDeveloperById();
+                        break;
+                    case "5":
+                        DeleteDeveloperById();
+                        break;
+                    case "6":
+                        DisplayDevTeams();
+                        break;
+                    case "7":
+                        DisplayDevTeamsWithTeamMembers();
+                        break;
                     case "10":
                         break;
                     case "99":
@@ -138,7 +156,21 @@ namespace KomodoInsuraceUI
 
         private void GetListOfAllDevelopers()
         {
-
+            Console.Clear();
+            List<Developer> listOfDevelopers = _developerRepo.GetListOfDevelopers();
+            foreach (Developer d in listOfDevelopers)
+            {
+                Console.WriteLine($"First Name: {d.FirstName} \n" +
+                $"Last Name: {d.LastName } \n" +
+                $"Title: {d.Title} \n" +
+                $"Salary: {d.Salary} \n" +
+                $"Hire Date: {d.HireDate} \n" +
+                $"Has Pluralsight Access: {d.HasPluralsightAccess } \n" +
+                $"***************************");
+                
+            }
+            Console.WriteLine("Press and key to return.");
+            Console.ReadLine();
         }
 
         private void UpdateDeveloperById()
@@ -149,6 +181,102 @@ namespace KomodoInsuraceUI
         private void DeleteDeveloperById()
         {
 
+        }
+
+        private void CreateDevTeam()
+        {
+            Console.WriteLine("Please Enter the team name:");
+            string teamName = Console.ReadLine();
+            DevTeam teamToBeAdded = new DevTeam(teamName);
+            bool addedTeamSuccessfully = _devTeamRepo.AddDevTeam(teamToBeAdded);
+            if (addedTeamSuccessfully)
+            {
+                Console.WriteLine("Team Added Successfully");
+            }
+            else 
+            {
+                Console.WriteLine("Something went wrong. Trying again will likely not work. Such is life.");
+            }
+
+
+        }
+
+        private void DisplayDevTeams()
+        {
+            Console.Clear();
+            List<DevTeam> listOfTeams = _devTeamRepo.GetListOfDevTeams();
+            foreach(DevTeam dt in listOfTeams)
+            {
+                Console.WriteLine($"Team ID: {dt.Id}\t Team Name: {dt.TeamName}");
+            }
+            Console.WriteLine("Press any key to return.");
+            Console.ReadLine();
+        }
+
+        private void DisplayDevTeamsWithTeamMembers()
+        {
+            List<DevTeam> listOfTeams = _devTeamRepo.GetListOfDevTeams();
+            
+            foreach(DevTeam dt in listOfTeams)
+            {
+                List<Developer> teamMembers = dt.TeamMembers;
+                Console.WriteLine($"Team {dt.TeamName}:\n" +
+                    $"**************************\n");
+                if (teamMembers != null)
+                {
+                    foreach (Developer d in teamMembers)
+                    {
+                        Console.WriteLine($"ID: {d.Id}\t Name: {d.FirstName} {d.LastName} \t Position: {d.Title}");
+                    }
+                }
+            }
+            Console.WriteLine("Press any key to return");
+            Console.ReadLine();
+        }
+
+        private void AddDeveloperToTeam()
+        {
+            Console.Clear();
+            Console.WriteLine("Please enter the id of the team member you would like to assign:");
+            int teamMemberId = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter the team ID you would like to assign them to.");
+            int teamId = Int32.Parse(Console.ReadLine());
+            Developer devToAdd = _developerRepo.GetDeveloperByID(teamMemberId);
+            //first remvoe them from existing team:
+
+            bool removedFromTeam = _devTeamRepo.RemoveDeveloperFromTeam(devToAdd);
+            bool addedToTeam = _devTeamRepo.AddDeveloperToTeam(devToAdd, teamId);
+            if (addedToTeam == true)
+            {
+                Console.WriteLine("Team member added successfully. Press any key to continue.");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong. Please wait until further notice.");
+                Console.ReadLine();
+            }
+        }
+
+        private void SeedData()
+        {
+            Developer dev1 = new Developer("Tyler", "Bobe", (Title)1, 85000.00m, new DateTime(2021, 11, 01), false);
+            Developer dev2 = new Developer("Rob", "Roy", (Title)2, 85000.00m, new DateTime(2019, 09, 08), false);
+            Developer dev3 = new Developer("Dwayne", "Marquis", (Title)3, 85000.00m, new DateTime(2021, 01, 01), false);
+            _developerRepo.AddDeveloper(dev1);
+            _developerRepo.AddDeveloper(dev2);
+            _developerRepo.AddDeveloper(dev3);
+
+            DevTeam team1 = new DevTeam("Lasercats");
+            DevTeam team2 = new DevTeam("Pop Tarts");
+            DevTeam team3 = new DevTeam("Wolfpack");
+
+            _devTeamRepo.AddDevTeam(team1);
+            _devTeamRepo.AddDevTeam(team2);
+            _devTeamRepo.AddDevTeam(team3);
+            _devTeamRepo.AddDeveloperToTeam(dev1, 1);
+            _devTeamRepo.AddDeveloperToTeam(dev2, 2);
+            _devTeamRepo.AddDeveloperToTeam(dev3, 1);
         }
 
     }
