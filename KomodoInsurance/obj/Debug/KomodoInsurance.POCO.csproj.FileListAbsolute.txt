@@ -1,0 +1,6 @@
+C:\ElevenFiftyProjects\GoldBadge\KomodoInsurance\KomodoInsurance\bin\Debug\KomodoInsurance.POCO.dll
+C:\ElevenFiftyProjects\GoldBadge\KomodoInsurance\KomodoInsurance\bin\Debug\KomodoInsurance.POCO.pdb
+C:\ElevenFiftyProjects\GoldBadge\KomodoInsurance\KomodoInsurance\obj\Debug\KomodoInsurance.POCO.csproj.AssemblyReference.cache
+C:\ElevenFiftyProjects\GoldBadge\KomodoInsurance\KomodoInsurance\obj\Debug\KomodoInsurance.POCO.csproj.CoreCompileInputs.cache
+C:\ElevenFiftyProjects\GoldBadge\KomodoInsurance\KomodoInsurance\obj\Debug\KomodoInsurance.POCO.dll
+C:\ElevenFiftyProjects\GoldBadge\KomodoInsurance\KomodoInsurance\obj\Debug\KomodoInsurance.POCO.pdb
