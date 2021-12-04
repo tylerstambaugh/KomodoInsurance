@@ -14,10 +14,7 @@ namespace KomodoInsurance.Repo
 
         //crud methods on devTeam.
 
-        //where do we add a developer to a team, reference the teamID on the dev?
         
-       
-
         //Create
         public bool AddDevTeam(DevTeam d)
         {
@@ -115,6 +112,24 @@ namespace KomodoInsurance.Repo
                     }
                 }
             }
+        }
+
+        public List<Developer> GetAllDevsWithoutPluralsightAccess()
+        {
+            List<Developer> listOfDevWithoutPluralsightAccess = new List<Developer>();
+            
+            foreach (DevTeam dt in _devTeamRepo)
+            {
+                foreach (Developer d in dt.TeamMembers.ToList())
+                {
+                    if (d.HasPluralsightAccess != true)
+                    {
+                       listOfDevWithoutPluralsightAccess.Add(d);
+                    }
+                }
+            }
+
+            return listOfDevWithoutPluralsightAccess;
         }
     }
 }
