@@ -103,20 +103,18 @@ namespace KomodoInsurance.Repo
             return false;
         }
 
-        public bool RemoveDeveloperFromTeam(Developer developerToBeRemoved)
+        public void RemoveDeveloperFromAllTeams(Developer developerToBeRemoved)
         {
             foreach (DevTeam dt in _devTeamRepo)
             {
-                foreach (Developer d in dt.TeamMembers)
+                foreach (Developer d in dt.TeamMembers.ToList())
                 {
                     if (d.Id == developerToBeRemoved.Id)
                     {
                         dt.TeamMembers.Remove(d);
-                        return true;
                     }
                 }
             }
-            return false;
         }
     }
 }
