@@ -277,7 +277,7 @@ namespace KomodoInsuraceUI
             foreach(DevTeam dt in listOfTeams)
             {
                 List<Developer> teamMembers = dt.TeamMembers;
-                Console.WriteLine($"Team {dt.TeamName}:\n" +
+                Console.WriteLine($"Team {dt.TeamName} members:\n" +
                     $"**************************");
                 if (teamMembers != null)
                 {
