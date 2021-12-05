@@ -100,6 +100,10 @@ namespace KomodoInsurance.Repo
             return false;
         }
 
+
+        // pass in a Developer objec to have them removed from all dev teams. 
+        // It didn't say a dev could or could not be on more than one team at a time. 
+       
         public void RemoveDeveloperFromAllTeams(Developer developerToBeRemoved)
         {
             foreach (DevTeam dt in _devTeamRepo)
