@@ -30,7 +30,7 @@ namespace KomodoInsuraceUI
                 "3. Developer Directory \n" +
                 "4. Update A Developer by ID\n" +
                 "5. Remove a Developer by ID\n" +
-                "6. Get list of All Devs w/o PluralSight Access" +
+                "6. Get list of All Devs w/o PluralSight Access \n" +
                 "7. Dev Team Operations \n" +
                 "99. Quit Komodo Insuracnce Developer Team Application");
 
@@ -46,7 +46,7 @@ namespace KomodoInsuraceUI
                   "1. Add Dev Team \n" +
                   "2. Display Dev Teams \n" +
                   "3. Display Dev Team w/ Team Members\n" +
-                  "4. Unassign Developer From Team\n" +
+                  "4. Unassign Developer From All Teams\n" +
                   "5. Assign Developer To Team \n" +
                   "99. Retrun to Main Menu.");
 
@@ -164,8 +164,6 @@ namespace KomodoInsuraceUI
                 hasPluralSightAccess = true;
             }
             
-            Console.ReadLine();
-
             Developer devToBeAdded = new Developer(devFirstName, devLastName, title, salary, hireDate, hasPluralSightAccess);
 
             bool addedDevSuccessfully = _developerRepo.AddDeveloper(devToBeAdded);
@@ -329,7 +327,7 @@ namespace KomodoInsuraceUI
                 Console.WriteLine();
             }
             Console.WriteLine("Press any key to return");
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
         private void AddDeveloperToTeam()
@@ -354,7 +352,7 @@ namespace KomodoInsuraceUI
                 if (addedToTeam == true)
                 {
                     Console.WriteLine("Team member added successfully. Press any key to continue.");
-                    Console.ReadLine();
+                    
                 }
                 else
                 {
@@ -384,7 +382,7 @@ namespace KomodoInsuraceUI
             Developer devToUnassign = _developerRepo.GetDeveloperByID(teamMemberId);
             _devTeamRepo.RemoveDeveloperFromAllTeams(devToUnassign);
             Console.WriteLine("Thank you. Press any key to return.");
-            Console.ReadLine();
+            Console.ReadKey();
         }
         private void GetListOfDevsWithoutPluralsightAccess()
         {
@@ -398,17 +396,17 @@ namespace KomodoInsuraceUI
             }
 
             Console.WriteLine("Press any key to continue.");
-            Console.ReadLine();
+            Console.ReadKey();
         }
         private void SeedData()
         {
             Developer dev1 = new Developer("Tyler", "Bobe", (Title)1, 85000.00m, new DateTime(2021, 11, 01), false);
-            Developer dev2 = new Developer("Rob", "Roy", (Title)2, 85000.00m, new DateTime(2019, 09, 08), false);
-            Developer dev3 = new Developer("Dwayne", "Marquis", (Title)3, 85000.00m, new DateTime(2021, 01, 01), false);
+            Developer dev2 = new Developer("Rob", "Rood", (Title)2, 85000.00m, new DateTime(2019, 09, 08), false);
+            Developer dev3 = new Developer("Dwayne", "Marquis", (Title)3, 85000.00m, new DateTime(2021, 01, 01), true);
             Developer dev4 = new Developer("Charlie", "Tuna", (Title)5, 85000.00m, new DateTime(2021, 01, 01), false);
-            Developer dev5 = new Developer("Jane", "Austen", (Title)4, 85000.00m, new DateTime(2021, 01, 01), false);
+            Developer dev5 = new Developer("Jane", "Austen", (Title)4, 85000.00m, new DateTime(2021, 01, 01), true);
             Developer dev6 = new Developer("Stephen", "Owlings", (Title)3, 85000.00m, new DateTime(2021, 01, 01), false);
-            Developer dev7 = new Developer("Hulk", "Hogan", (Title)2, 85000.00m, new DateTime(2021, 01, 01), false);
+            Developer dev7 = new Developer("Hulk", "Hogan", (Title)2, 85000.00m, new DateTime(2021, 01, 01), true);
             _developerRepo.AddDeveloper(dev1);
             _developerRepo.AddDeveloper(dev2);
             _developerRepo.AddDeveloper(dev3);
